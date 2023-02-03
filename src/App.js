@@ -1,25 +1,44 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
 
-function App() {
+
+
+export const App = () => {
+
+  const [ leftNumber, setLeftNumber ] = useState();
+  const [ rightNumber, setRightNumber ] = useState();
+  const [ sum, setSum ] = useState();
+
+  const getLeftNumber = (event) => {
+    // 値を消した後、0が表示されてしまう。
+    // 数字以外が入力できる？
+    const inputNumber = Number(event.target.value);
+    if(inputNumber === "0") {
+      setLeftNumber();
+    }
+    setLeftNumber(inputNumber);
+  }
+
+  const getRightNumber = (event) => {
+    // 値を消した後、0が表示されてしまう。
+    // 数字以外が入力できる？
+    const inputNumber = Number(event.target.value);
+    setRightNumber(inputNumber);
+  }
+
+  const onClickSum = () => setSum(leftNumber + rightNumber);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <h3>計算アプリだよ</h3>
+      <div className='mathArea'>
+        <input type="number" onChange={getLeftNumber} value={leftNumber}/>
+        <p>+</p>
+        <input type="number" onChange={getRightNumber} value={rightNumber}/>
+        <p>=</p>
+        <p> { sum } </p>
+      </div>
+      <button onClick={onClickSum}>計算</button>
+    </>
   );
 }
-
-export default App;
